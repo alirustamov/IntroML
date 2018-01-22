@@ -14,6 +14,8 @@ def load_reviews_data(reviews_data_path):
         A list of dictionaries where each dictionary maps column name
         to value for a row in the reviews dataset.
     """
+    with open(reviews_data_path) as csvfile:
+        return list(csv.DictReader(csvfile, delimiter='\t'))
     raise NotImplementedError
 
 def load_toy_data(toy_data_path):
@@ -26,7 +28,9 @@ def load_toy_data(toy_data_path):
         A tuple (features, labels) in which features is an Nx2 numpy
         matrix and labels is a length-N vector of +1/-1 labels.
     """
-    raise NotImplementedError
+    labels, x, y = np.loadtxt(toy_data_path, unpack = True )
+    data = np.vstack((x, y)).T
+    return data, labels
 
 def plot_toy_data(data, labels):
     """Plots the toy data in 2D.
